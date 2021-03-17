@@ -1,14 +1,14 @@
 [
     {
         "remote":       "github",
-        "repository":   "lostark13/vendor_surya",
+        "repository":   "MrAkells/vendor_xiaomi_surya",
         "target_path":  "vendor/xiaomi/surya",
-        "branch":     "ten"
+        "branch":     "10"
     },
     {
         "remote":       "github",
-        "repository":   "lostark13/kernel_xiaomi_surya",
+        "repository":   "GZR-Kernels/Optimus_Drunk_Surya",
         "target_path":  "kernel/xiaomi/surya",
-        "branch":     "ten"
+        "branch":     "11.0"
     }
 ]
