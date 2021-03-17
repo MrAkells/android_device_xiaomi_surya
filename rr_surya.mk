@@ -10,7 +10,7 @@ $(call inherit-product, device/xiaomi/surya/device.mk)
 $(call inherit-product, vendor/rr/config/common_full_phone.mk)
 
 #RR-Stuff
-RR_BUILDTYPE := Official
+RR_BUILDTYPE := Unofficial
 TARGET_FACE_UNLOCK_SUPPORTED := true
 BUILD_RR_WALLPAPERS:= true
 
