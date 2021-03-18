@@ -21,6 +21,9 @@ PRODUCT_BRAND := POCO
 PRODUCT_MODEL := POCO X3
 PRODUCT_MANUFACTURER := Xiaomi
 
+# Def Launcher
+TARGET_LAUNCHER := lawnchair
+
 # Build fingerpring from Redfin
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="redfin-user 11 RQ2A.210305.006 7119741 release-keys"
