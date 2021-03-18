@@ -68,6 +68,10 @@ PRODUCT_PACKAGES += \
 # OPScreenRecord
 PRODUCT_PACKAGES += \
     OPScreenRecord
+    
+#Prebuilts
+PRODUCT_PACKAGES += \
+    RemovePackages
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-lawnchair.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-lawnchair.xml \
