@@ -137,24 +137,24 @@ void load_device_properties() {
             set_device_props(
                              "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys",
                              "redfin-user 11 RQ2A.210305.006 7119741 release-keys",
-                             "Poco", "surya", "M2007J20CG");
+                             "Poco", "surya", "Poco X3 NFC");
         } else if (region == "India") {
             set_device_props(
                              "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys",
                              "redfin-user 11 RQ2A.210305.006 7119741 release-keys",
-                             "Poco", "surya", "M2007J20CG");
+                             "Poco", "surya", "Poco X3 NFC");
         }
     } else if (hwname == "karna") {
         if (region == "INT") {
             set_device_props(
                              "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys",
                              "redfin-user 11 RQ2A.210305.006 7119741 release-keys",
-                             "Poco", "karna", "M2007J20CI");
+                             "Poco", "karna", "Poco X3");
         } else if (region == "India") {
             set_device_props(
                              "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys",
                              "redfin-user 11 RQ2A.210305.006 7119741 release-keys",
-                             "Poco", "karna", "M2007J20CI");
+                             "Poco", "karna", "Poco X3");
         }
     }
 }
