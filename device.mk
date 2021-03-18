@@ -82,7 +82,8 @@ PRODUCT_COPY_FILES += \
 
 # Dex
 PRODUCT_DEXPREOPT_SPEED_APPS += \
-    SystemUI
+    SystemUI \
+    Lawnchair
     
 # fastbootd
 PRODUCT_PACKAGES += \
