@@ -22,7 +22,6 @@ LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/app
 LOCAL_DEX_PREOPT := false
 LOCAL_PRODUCT_MODULE := true
-LOCAL_OVERRIDES_PACKAGES := Recorder
 include $(BUILD_PREBUILT)
 
 # Remove system apps
@@ -30,7 +29,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := RemovePackages
 LOCAL_MODULE_CLASS := APPS
 LOCAL_MODULE_TAGS := optional
-LOCAL_OVERRIDES_PACKAGES := AudioFX Launcher3QuickStep TrebuchetQuickStep Trebuchet Updater
+LOCAL_OVERRIDES_PACKAGES := AudioFX Recorder Launcher3QuickStep TrebuchetQuickStep Trebuchet Updater
 LOCAL_UNINSTALLABLE_MODULE := true
 LOCAL_CERTIFICATE := PRESIGNED
 LOCAL_SRC_FILES := /dev/null
