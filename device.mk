@@ -85,9 +85,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/parts/privapp-permissions-parts.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-parts.xml
 
 # Dex
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    SystemUI \
-    Lawnchair
+PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := everything
     
 # fastbootd
 PRODUCT_PACKAGES += \
