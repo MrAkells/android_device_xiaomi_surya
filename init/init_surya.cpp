@@ -135,25 +135,25 @@ void load_device_properties() {
     if (hwname == "surya") {
         if (region == "INT") {
             set_device_props(
-                             "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys",
-                             "redfin-user 11 RQ2A.210305.006 7119741 release-keys",
+                             "google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys",
+                             "redfin-user 11 RQ2A.210505.003 7255357 release-keys",
                              "Poco", "surya", "Poco X3 NFC");
         } else if (region == "India") {
             set_device_props(
-                             "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys",
-                             "redfin-user 11 RQ2A.210305.006 7119741 release-keys",
+                             "google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys",
+                             "redfin-user 11 RQ2A.210505.003 7255357 release-keys",
                              "Poco", "surya", "Poco X3 NFC");
         }
     } else if (hwname == "karna") {
         if (region == "INT") {
             set_device_props(
-                             "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys",
-                             "redfin-user 11 RQ2A.210305.006 7119741 release-keys",
+                             "google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys",
+                             "redfin-user 11 RQ2A.210505.003 7255357 release-keys",
                              "Poco", "karna", "Poco X3");
         } else if (region == "India") {
             set_device_props(
-                             "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys",
-                             "redfin-user 11 RQ2A.210305.006 7119741 release-keys",
+                             "google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys",
+                             "redfin-user 11 RQ2A.210505.003 7255357 release-keys",
                              "Poco", "karna", "Poco X3");
         }
     }
