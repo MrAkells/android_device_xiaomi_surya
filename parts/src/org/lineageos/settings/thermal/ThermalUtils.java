@@ -24,10 +24,12 @@ import android.os.UserHandle;
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.utils.FileUtils;
+import org.lineageos.settings.utils.RefreshRateUtils;
 
 public final class ThermalUtils {
 
     private static final String THERMAL_CONTROL = "thermal_control";
+    private static final String THERMAL_SERVICE = "thermal_service";
 
     protected static final int STATE_DEFAULT = 0;
     protected static final int STATE_BENCHMARK = 1;
@@ -49,14 +51,33 @@ public final class ThermalUtils {
     private static final String THERMAL_SCONFIG = "/sys/class/thermal/thermal_message/sconfig";
 
     private SharedPreferences mSharedPrefs;
+    private static Context mContext;
 
     protected ThermalUtils(Context context) {
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static void startService(Context context) {
+    public static void initialize(Context context) {
+        mContext = context;
+        if (isServiceEnabled(context))
+            startService(context);
+        else
+            setDefaultThermalProfile();
+    }
+
+    protected static void startService(Context context) {
         context.startServiceAsUser(new Intent(context, ThermalService.class),
                 UserHandle.CURRENT);
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(THERMAL_SERVICE, "true").apply();
+    }
+
+    protected static void stopService(Context context) {
+        context.stopService(new Intent(context, ThermalService.class));
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(THERMAL_SERVICE, "false").apply();
+    }
+
+    protected static boolean isServiceEnabled(Context context) {
+        return Boolean.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString(THERMAL_SERVICE, "false"));
     }
 
     private void writeValue(String profiles) {
@@ -117,24 +138,35 @@ public final class ThermalUtils {
         return state;
     }
 
+    protected static void setDefaultThermalProfile() {
+        FileUtils.writeLine(THERMAL_SCONFIG, THERMAL_STATE_DEFAULT);
+        RefreshRateUtils.setFPS(RefreshRateUtils.getRefreshRate(mContext)); // default Hz
+    }
+
     protected void setThermalProfile(String packageName) {
         String value = getValue();
         String modes[];
         String state = THERMAL_STATE_DEFAULT;
+
+        RefreshRateUtils.setFPS(RefreshRateUtils.getRefreshRate(mContext)); // default Hz
 
         if (value != null) {
             modes = value.split(":");
 
             if (modes[0].contains(packageName + ",")) {
                 state = THERMAL_STATE_BENCHMARK;
+                RefreshRateUtils.setFPS(4); // 120 Hz
             } else if (modes[1].contains(packageName + ",")) {
                 state = THERMAL_STATE_CAMERA;
             } else if (modes[2].contains(packageName + ",")) {
                 state = THERMAL_STATE_DIALER;
+                RefreshRateUtils.setFPS(2); // 60 Hz
             } else if (modes[3].contains(packageName + ",")) {
                 state = THERMAL_STATE_GAMING;
+                RefreshRateUtils.setFPS(3); // 90 Hz
             }
         }
+
         FileUtils.writeLine(THERMAL_SCONFIG, state);
     }
 }
