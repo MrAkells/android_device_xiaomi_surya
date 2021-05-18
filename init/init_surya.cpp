@@ -135,25 +135,25 @@ void load_device_properties() {
     if (hwname == "surya") {
         if (region == "INT") {
             set_device_props(
-                             "google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys",
-                             "redfin-user 11 RQ2A.210505.003 7255357 release-keys",
+                             "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys",
+                             "walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys",
                              "Poco", "surya", "Poco X3 NFC");
         } else if (region == "India") {
             set_device_props(
-                             "google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys",
-                             "redfin-user 11 RQ2A.210505.003 7255357 release-keys",
+                             "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys",
+                             "walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys",
                              "Poco", "surya", "Poco X3 NFC");
         }
     } else if (hwname == "karna") {
         if (region == "INT") {
             set_device_props(
-                             "google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys",
-                             "redfin-user 11 RQ2A.210505.003 7255357 release-keys",
+                             "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys",
+                             "walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys",
                              "Poco", "karna", "Poco X3");
         } else if (region == "India") {
             set_device_props(
-                             "google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys",
-                             "redfin-user 11 RQ2A.210505.003 7255357 release-keys",
+                             "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys",
+                             "walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys",
                              "Poco", "karna", "Poco X3");
         }
     }
