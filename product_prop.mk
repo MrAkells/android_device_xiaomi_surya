@@ -17,6 +17,10 @@ PRODUCT_PRODUCT_PROPERTIES += \
     vendor.camera.aux.packagelist=org.lineageos.snap,net.sourceforge.opencamera,org.codeaurora.snapcam \
     media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 
+# Dex2oat
+PRODUCT_PRODUCT_PROPERTIES += \
+     dalvik.vm.dex2oat64.enabled=true
+
 # Graphics
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
