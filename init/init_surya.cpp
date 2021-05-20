@@ -45,16 +45,10 @@
 #include "vendor_init.h"
 
 using android::base::GetProperty;
-using android::init::property_set;
+using android::base::SetProperty;
+using std::string;
 
-char const *heapstartsize;
-char const *heapgrowthlimit;
-char const *heapsize;
-char const *heapminfree;
-char const *heapmaxfree;
-char const *heaptargetutilization;
-
-std::vector<std::string> ro_props_default_source_order = {
+std::vector<string> ro_props_default_source_order = {
     "",
     "product.",
     "system.",
@@ -71,9 +65,9 @@ void property_override(char const prop[], char const value[], bool add = true) {
     __system_property_add(prop, strlen(prop), value, strlen(value));
 }
 
-void set_ro_build_prop(const std::string &source, const std::string &prop,
-                       const std::string &value, bool product = false) {
-    std::string prop_name;
+void set_ro_build_prop(const string &source, const string &prop,
+                       const string &value, bool product = false) {
+    string prop_name;
 
     if (product) {
         prop_name = "ro.product." + source + prop;
@@ -84,8 +78,8 @@ void set_ro_build_prop(const std::string &source, const std::string &prop,
     property_override(prop_name.c_str(), value.c_str(), false);
 }
 
-void set_device_props(const std::string fingerprint, const std::string description,
-                      const std::string brand, const std::string device, const std::string model) {
+void set_device_props(const string fingerprint, const string description,
+                      const string brand, const string device, const string model) {
     for (const auto &source : ro_props_default_source_order) {
         set_ro_build_prop(source, "fingerprint", fingerprint);
         set_ro_build_prop(source, "brand", brand, true);
@@ -97,97 +91,32 @@ void set_device_props(const std::string fingerprint, const std::string descripti
     property_override("ro.build.description", description.c_str());
 }
 
-/* From Magisk@jni/magiskhide/hide_utils.c */
-static const char *snet_prop_key[] = {
-    "ro.boot.vbmeta.device_state",
-    "ro.boot.verifiedbootstate",
-    "ro.boot.flash.locked",
-    "ro.boot.veritymode",
-    "ro.boot.warranty_bit",
-    "ro.warranty_bit",
-    "ro.debuggable",
-    "ro.secure",
-    "ro.build.type",
-    "ro.build.tags",
-    "ro.build.selinux",
-    NULL
-};
-
-static const char *snet_prop_value[] = {
-    "locked",
-    "green",
-    "1",
-    "enforcing",
-    "0",
-    "0",
-    "0",
-    "1",
-    "user",
-    "release-keys",
-    "1",
-    NULL
-};
-
 void load_device_properties() {
-    std::string hwname = GetProperty("ro.boot.hwname", "");
-    std::string region = GetProperty("ro.boot.hwc", "");
+    string hwname = GetProperty("ro.boot.hwname", "");
+
+    string fingerprint = "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys";
+    string description = "walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys";
 
     if (hwname == "surya") {
-        if (region == "INT") {
-            set_device_props(
-                             "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys",
-                             "walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys",
-                             "Poco", "surya", "Poco X3 NFC");
-        } else if (region == "India") {
-            set_device_props(
-                             "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys",
-                             "walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys",
-                             "Poco", "surya", "Poco X3 NFC");
-        }
+        set_device_props(fingerprint, description, "Poco", "surya", "X3 NFC");
     } else if (hwname == "karna") {
-        if (region == "INT") {
-            set_device_props(
-                             "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys",
-                             "walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys",
-                             "Poco", "karna", "Poco X3");
-        } else if (region == "India") {
-            set_device_props(
-                             "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys",
-                             "walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys",
-                             "Poco", "karna", "Poco X3");
-        }
+        set_device_props(fingerprint, description, "Poco", "karna", "X3");
     }
 }
 
-
-void nfc_check()
-{
-    std::string hwname = GetProperty("ro.boot.hwname", "");
-
-    char nfc_prop[] = "ro.hw.nfc";
-
-    if (hwname == "surya"){
-        property_override(nfc_prop, "1");
-    } else if (hwname == "karna"){
-        property_override(nfc_prop, "0");
-    }
-}
-
-void check_device()
+void load_dalvik_properties()
 {
     struct sysinfo sys;
+    char const *heapstartsize;
+    char const *heapgrowthlimit;
+    char const *heapsize;
+    char const *heapminfree;
+    char const *heapmaxfree;
+    char const *heaptargetutilization;
 
     sysinfo(&sys);
 
-    if (sys.totalram >= 5ull * 1024 * 1024 * 1024){
-        // from - phone-xhdpi-6144-dalvik-heap.mk
-        heapstartsize = "16m";
-        heapgrowthlimit = "256m";
-        heapsize = "512m";
-        heaptargetutilization = "0.5";
-        heapminfree = "8m";
-        heapmaxfree = "32m";
-    } else if (sys.totalram >= 7ull * 1024 * 1024 * 1024) {
+    if (sys.totalram >= 7ull * 1024 * 1024 * 1024) {
         // from - phone-xhdpi-8192-dalvik-heap.mk
         heapstartsize = "24m";
         heapgrowthlimit = "256m";
@@ -195,12 +124,15 @@ void check_device()
         heaptargetutilization = "0.46";
         heapminfree = "8m";
         heapmaxfree = "48m";
+    } else if (sys.totalram >= 5ull * 1024 * 1024 * 1024){
+        // from - phone-xhdpi-6144-dalvik-heap.mk
+        heapstartsize = "16m";
+        heapgrowthlimit = "256m";
+        heapsize = "512m";
+        heaptargetutilization = "0.5";
+        heapminfree = "8m";
+        heapmaxfree = "32m";
     }
-}
-
-void vendor_load_properties()
-{
-    check_device();
 
     property_set("dalvik.vm.heapstartsize", heapstartsize);
     property_set("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
@@ -208,8 +140,10 @@ void vendor_load_properties()
     property_set("dalvik.vm.heaptargetutilization", heaptargetutilization);
     property_set("dalvik.vm.heapminfree", heapminfree);
     property_set("dalvik.vm.heapmaxfree", heapmaxfree);
+}
 
+void vendor_load_properties()
+{
+    load_dalvik_properties();
     load_device_properties();
-
-    nfc_check();
 }
