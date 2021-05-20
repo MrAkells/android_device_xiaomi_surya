@@ -169,6 +169,11 @@ PRODUCT_PACKAGES += \
     libqdMetaData \
     libqdMetaData.system
 
+# WiFi
+PRODUCT_PACKAGES += \
+    TetheringConfigOverlay \
+    WifiOverlay
+
 PRODUCT_BOOT_JARS += \
     WfdCommon
 
