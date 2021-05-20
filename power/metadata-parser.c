@@ -89,7 +89,6 @@ int parse_video_encode_metadata(char* metadata,
 
 int parse_video_decode_metadata(char* metadata,
                                 struct video_decode_metadata_t* video_decode_metadata) {
-{
     char attribute[1024], value[1024], *saveptr;
     char* temp_metadata = metadata;
     int parsing_status;
