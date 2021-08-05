@@ -83,13 +83,13 @@ void vendor_load_properties() {
     std::string mod_device;
 
     if (hwname == "surya") {
-        model = "POCO X3 NFC";
+        model = "Poco X3 NFC";
         device = "surya";
         mod_device = "surya_global";
 	fingerprint = "POCO/surya_eea/surya:11/RKQ1.200826.002/V12.0.6.4.RJGEUXM:user/release-keys";
 	description = "surya_eea-user 11 RKQ1.200826.002 V12.0.7.0.RJGEUXM release-keys";
     } else if (hwname == "karna") {
-        model = "POCO X3";
+        model = "Poco X3";
         device = "karna";
         mod_device = "surya_in_global";
 	fingerprint = "POCO/surya_eea/surya:11/RKQ1.200826.002/V12.0.6.4.RJGEUXM:user/release-keys";
